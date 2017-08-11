@@ -13,7 +13,9 @@ class Config:
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-
+    MAIL_CC_SALES = 'sales@lsptc.de'
+    MAIL_CC_ANFRAGE = 'anfrage@lsptc.de'
+    
     @staticmethod
     def init_app(app):
         pass
