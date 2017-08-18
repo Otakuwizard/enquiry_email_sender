@@ -12,15 +12,18 @@ class Enquiry(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     asker = db.Column(db.String(32), nullable=False)
     enquiry_number = db.Column(db.String(64), index=True, nullable=False)
+    brand = db.Column(db.String(32), index=True)
     recipient = db.Column(db.Text())
     quotes = db.relationship('Quote', backref='enquiry', lazy='dynamic')
     enquiry_tables = db.relationship('EnquiryTable', backref='enquiry', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Quiry %r-%r-%r>' % (self.asker, self.brand, self.enquiry_number)
 
 class EnquiryTable(db.Model):
     __tablename__ = 'enquiry_tables'
     id = db.Column(db.String(64), primary_key=True, default=generate_id)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
-    brand = db.Column(db.String(32), index=True)
     typ_number = db.Column(db.String(64))
     amount = db.Column(db.Integer)
     enquiry_number = db.Column(db.String(64), db.ForeignKey('enquiries.enquiry_number'))
